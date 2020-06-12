@@ -20,5 +20,5 @@ const listining = () => {
   console.log('Server On');
   console.log(`Listening on http://localhost:${PORT}`);
 };
-app.listen(port, listining);
+app.listen(PORT, listining);
 
