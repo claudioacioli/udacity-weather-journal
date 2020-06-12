@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
   /* Global Variables */
   const 
-    OPEN_WEATHER_API_URL = 'api.openweathermap.org',
+    OPEN_WEATHER_API_URL = 'https://api.openweathermap.org',
     OPEN_WEATHER_API_KEY = 'aa8234745b091ee3bb02c21e583fcc34'
   ;
   // Cors for cross origin allowance
