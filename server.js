@@ -1,5 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
+const OPEN_WEATHER_API_KEY = 'aa8234745b091ee3bb02c21e583fcc34';
 // Require Express to run server and routes
 const express = require('express');
 const bodyParser = require('body-parser');
