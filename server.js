@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 // Static content
-app.use(express.static('website'));
+app.use(express.static('public'));
 // Setup Server
 const PORT = 8080;
 const listining = () => {
