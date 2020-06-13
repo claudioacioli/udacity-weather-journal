@@ -49,15 +49,51 @@ document.addEventListener("DOMContentLoaded", e => {
       }
     },
     
-    getWeatherDataFromCity = async (city, country) => {
-      const result = await  getData(`${OPEN_WEATHER_API_URL}/data/2.5/weather?q=${city},${country}&APPID=${OPEN_WEATHER_API_KEY}`);
-      console.log(result);
+    getWeatherDataFromZip = async (zip,  country="BR") => {
+      return await getData(`${OPEN_WEATHER_API_URL}/data/2.5/weather?q=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`);
+    },
+
+    postDataFromServer = async result => {
+      const data = {
+        temp: result.main.temp,
+        date: result.dt,
+        feelings: feelingsElement.value
+      };
+      console.log(data);
+      return await postData('/data', data);
+    },
+
+    getDataFromServer = async () => {
+      return await getData('/data');
     }
 
+    renderLastTemp = (result) => {
+      console.log(result);
+      const data = result[result.length -1];
+      
+      dateElement.textContent = data.date
+      tempElement.textContent = data.temp;
+      contentElement.textContent = data.feelings;
+    }
+
+    handlerGenerateClick = e => {
+      
+      const zip = zipElement.value.toString().trim();
+
+      if(!zip.length)
+        return;
+
+      getWeatherDataFromZip(zip)
+        .then(postDataFromServer)
+        .then(getDataFromServer)
+        .then(renderLastTemp)
+        .catch(error => {
+          console.log(error);
+        })
+
+    }
   ;
 
-  getWeatherDataFromCity("Brasilia", "BR");
-  getData("/data")
-    .then(result => console.log(result));
+  buttonElement.addEventListener("click", handlerGenerateClick);
 
 });
