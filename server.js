@@ -6,11 +6,13 @@ const cors = require('cors');
 const projectData = [];
 const readData = (req, res) => {
   res.send(projectData);
+  res.end();
 };
 const createData = (req, res) => {
   console.log(req.body);
   projectData.push(req.body);
-  res.send({"status": "OK"});
+  res.status(201).send({"status": 201, "message": "item created."});
+  res.end();
 };
 // Instance of app
 const app = express();
