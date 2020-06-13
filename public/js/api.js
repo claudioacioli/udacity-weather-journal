@@ -1,4 +1,12 @@
-
+/**
+ * Wrapper to fetch Data
+ *
+ * Dependencies: None
+ *
+ * JS Version: ES2015/ES6
+ *
+ * @Author: Claudio Acioli
+*/
 const  
   
   getData = async (url, mode="cors") => {

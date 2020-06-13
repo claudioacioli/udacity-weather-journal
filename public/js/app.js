@@ -1,9 +1,18 @@
+/**
+ * Nanodegree Weather journal project
+ *
+ * Dependencies: by.js, api.js
+ *
+ * JS Version: ES2015/ES6
+ *
+ * @Author: Claudio Acioli
+*/
+
 document.addEventListener("DOMContentLoaded", e => {
 
 /*
  * Start Global Variables 
 */
- 
   const 
     // Api Urls   
     OPEN_WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather",
