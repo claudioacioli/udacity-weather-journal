@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", e => {
 
   const 
     
-    getData = async url => {
-      const response = await fetch(url);
+    getData = async (url, mode="cors") => {
+      const response = await fetch(url, {method:"GET", mode});
       
       try {
         const result = await response.json();
@@ -31,11 +31,12 @@ document.addEventListener("DOMContentLoaded", e => {
       }
     },
 
-    postData = async (url, data={}) => {
+    postData = async (url, data={}, mode="cors") => {
       const response = await fetch(url, {
         method: "POST",
         credentials: "same-origin",
         body: JSON.stringify(data),
+        mode,
         headers: {
           "Content-Type": "application/json"
         }
@@ -48,9 +49,13 @@ document.addEventListener("DOMContentLoaded", e => {
         console.error("Error", ex);
       }
     },
+
+    buildOpenWeatherUrl = (zip, country="BR") => {
+      return `${OPEN_WEATHER_API_URL}/data/2.5/weather?q=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`;
+    },
     
     getWeatherDataFromZip = async (zip,  country="BR") => {
-      return await getData(`${OPEN_WEATHER_API_URL}/data/2.5/weather?q=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`);
+      return await getData(buildOpenWeatherUrl(zip, country));
     },
 
     postDataFromServer = async result => {
@@ -64,17 +69,21 @@ document.addEventListener("DOMContentLoaded", e => {
     },
 
     getDataFromServer = async () => {
-      return await getData('/data');
-    }
+      return await getData('/data')
+        .then(renderLastTemp)
+    },
 
     renderLastTemp = (result) => {
-      console.log(result);
+      
+      if(!result.length)
+        return;
+
       const data = result[result.length -1];
       
       dateElement.textContent = data.date
       tempElement.textContent = data.temp;
       contentElement.textContent = data.feelings;
-    }
+    },
 
     handlerGenerateClick = e => {
       
@@ -86,7 +95,6 @@ document.addEventListener("DOMContentLoaded", e => {
       getWeatherDataFromZip(zip)
         .then(postDataFromServer)
         .then(getDataFromServer)
-        .then(renderLastTemp)
         .catch(error => {
           console.log(error);
         })
@@ -95,5 +103,6 @@ document.addEventListener("DOMContentLoaded", e => {
   ;
 
   buttonElement.addEventListener("click", handlerGenerateClick);
+  getDataFromServer();
 
 });
