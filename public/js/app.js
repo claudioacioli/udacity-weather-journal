@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", e => {
     OPEN_WEATHER_API_URL = 'https://api.openweathermap.org',
     OPEN_WEATHER_API_KEY = 'aa8234745b091ee3bb02c21e583fcc34',
   /* DOM Elements */
-    zipElement = document.getElementById("zip"),
-    feelingsElement = document.getElementById("feelings"),
-    buttonElement = document.getElementById("generate"),
-    holderElement = document.getElementById("entryHolder"),
-    dateElement = document.getElementById("date"),
-    tempElement = document.getElementById("temp"),
-    contentElement = document.getElementById("content")
+    zipElement = byId("zip"),
+    feelingsElement = byId("feelings"),
+    buttonElement = byId("generate"),
+    holderElement = byId("entryHolder"),
+    dateElement = byId("date"),
+    tempElement = byId("temp"),
+    contentElement = byId("content")
   ;
   // Cors for cross origin allowance
   // Create a new date instance dynamically with JS
@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", e => {
         date: result.dt,
         feelings: feelingsElement.value
       };
-      console.log(data);
       return await postData('/data', data);
     },
 
@@ -79,10 +78,10 @@ document.addEventListener("DOMContentLoaded", e => {
         return;
 
       const data = result[result.length -1];
-      
       dateElement.textContent = data.date
       tempElement.textContent = data.temp;
       contentElement.textContent = data.feelings;
+
     },
 
     handlerGenerateClick = e => {
