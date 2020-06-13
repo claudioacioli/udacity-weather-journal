@@ -30,15 +30,15 @@ document.addEventListener("DOMContentLoaded", e => {
  * End Global Variables
  * Start Helper functions
 */
-    buildOpenWeatherUrl = (zip, country="BR") => {
-      return `${OPEN_WEATHER_API_URL}?zip=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`;
+    buildOpenWeatherUrl = (zip, country="us") => {
+      return `${OPEN_WEATHER_API_URL}?zip=${zip},${country}&units=metric&APPID=${OPEN_WEATHER_API_KEY}`;
     },
 
     toStringDate = time => {
       return new Date(time * 1000).toLocaleString();
     },
     
-    getWeatherDataFromZip = async (zip,  country="US") => {
+    getWeatherDataFromZip = async (zip,  country="us") => {
       return await getData(buildOpenWeatherUrl(zip, country));
     },
 
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
       const data = result[result.length -1];
       dateElement.textContent = toStringDate(data.date);
-      tempElement.textContent = data.temp;
+      tempElement.innerHTML = `${data.temp}&deg;C`;
       contentElement.textContent = data.feelings;
 
     }
