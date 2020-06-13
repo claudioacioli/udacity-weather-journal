@@ -14,6 +14,9 @@ const createData = (req, res) => {
   res.status(201).send({"status": 201, "message": "item created."});
   res.end();
 };
+const error404 = (req, res) => {
+  res.status(404).send({"status": 404, "message": "Page not found"});
+}
 // Instance of app
 const app = express();
 // Middleware
@@ -25,6 +28,7 @@ app.use(express.static('public'));
 // Routes
 app.get("/data", readData);
 app.post("/data", createData);
+app.all("*", error404);
 // Setup Server
 const PORT = 8080;
 const listining = () => {
