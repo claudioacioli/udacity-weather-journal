@@ -8,10 +8,6 @@
  * @Author: Claudio Acioli
 */
 
-/**
- * Start Wrapper Functions
- *
-*/
 const 
   
   byId = (id, parent=document) =>
@@ -37,3 +33,4 @@ const
   byTag = (tag, parent=document) =>
     parent.getElementsByTagName(tag)
 ;
+
