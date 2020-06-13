@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", e => {
 
   /* Global Variables */
   const 
-    OPEN_WEATHER_API_URL = "https://api.openweathermap.org",
+    OPEN_WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather",
     OPEN_WEATHER_API_KEY = "aa8234745b091ee3bb02c21e583fcc34",
+    WEATHER_JOURNAL_API_URL = "/data",
   /* DOM Elements */
     zipElement = byId("zip"),
     feelingsElement = byId("feelings"),
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", e => {
     },
 
     buildOpenWeatherUrl = (zip, country="BR") => {
-      return `${OPEN_WEATHER_API_URL}/data/2.5/weather?q=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`;
+      return `${OPEN_WEATHER_API_URL}?q=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`;
     },
     
     getWeatherDataFromZip = async (zip,  country="BR") => {
@@ -60,11 +61,11 @@ document.addEventListener("DOMContentLoaded", e => {
         date: result.dt,
         feelings: feelingsElement.value
       };
-      return await postData("/data", data);
+      return await postData(WEATHER_JOURNAL_API_URL, data);
     },
 
     getDataFromServer = async () => {
-      return await getData("/data")
+      return await getData(WEATHER_JOURNAL_API_URL)
         .then(renderLastTemp)
     },
 
