@@ -31,14 +31,14 @@ document.addEventListener("DOMContentLoaded", e => {
  * Start Helper functions
 */
     buildOpenWeatherUrl = (zip, country="BR") => {
-      return `${OPEN_WEATHER_API_URL}?q=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`;
+      return `${OPEN_WEATHER_API_URL}?zip=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`;
     },
 
     toStringDate = time => {
       return new Date(time * 1000).toLocaleString();
     },
     
-    getWeatherDataFromZip = async (zip,  country="BR") => {
+    getWeatherDataFromZip = async (zip,  country="US") => {
       return await getData(buildOpenWeatherUrl(zip, country));
     },
 
