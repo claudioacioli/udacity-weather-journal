@@ -1,11 +1,15 @@
 document.addEventListener("DOMContentLoaded", e => {
 
-  /* Global Variables */
+/*
+ * Start Global Variables 
+*/
+ 
   const 
+    // Api Urls   
     OPEN_WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather",
     OPEN_WEATHER_API_KEY = "aa8234745b091ee3bb02c21e583fcc34",
     WEATHER_JOURNAL_API_URL = "/data",
-  /* DOM Elements */
+    // DOM Elements
     zipElement = byId("zip"),
     feelingsElement = byId("feelings"),
     buttonElement = byId("generate"),
@@ -13,7 +17,10 @@ document.addEventListener("DOMContentLoaded", e => {
     dateElement = byId("date"),
     tempElement = byId("temp"),
     contentElement = byId("content"),
-
+/**
+ * End Global Variables
+ * Start Helper functions
+*/
     buildOpenWeatherUrl = (zip, country="BR") => {
       return `${OPEN_WEATHER_API_URL}?q=${zip},${country}&APPID=${OPEN_WEATHER_API_KEY}`;
     },
@@ -35,19 +42,7 @@ document.addEventListener("DOMContentLoaded", e => {
       return await getData(WEATHER_JOURNAL_API_URL)
         .then(renderLastTemp)
     },
-
-    renderLastTemp = (result) => {
-      
-      if(!result.length)
-        return;
-
-      const data = result[result.length -1];
-      dateElement.textContent = data.date
-      tempElement.textContent = data.temp;
-      contentElement.textContent = data.feelings;
-
-    },
-
+    
     handlerGenerateClick = e => {
       
       const zip = zipElement.value.toString().trim();
@@ -62,8 +57,27 @@ document.addEventListener("DOMContentLoaded", e => {
           console.log(error);
         })
 
+    },
+/**
+ * End Helper functions
+ * Begin View functions
+*/
+    renderLastTemp = (result) => {
+      
+      if(!result.length)
+        return;
+
+      const data = result[result.length -1];
+      dateElement.textContent = data.date
+      tempElement.textContent = data.temp;
+      contentElement.textContent = data.feelings;
+
     }
   ;
+
+/**
+ * End View functions
+*/
 
   buttonElement.addEventListener("click", handlerGenerateClick);
   getDataFromServer();
