@@ -8,8 +8,9 @@ const readData = (req, res) => {
   res.send(projectData);
 };
 const createData = (req, res) => {
-  projectData.push(JSON.parse(res.body));
-  res.send();
+  console.log(req.body);
+  projectData.push(req.body);
+  res.send({"status": "OK"});
 };
 // Instance of app
 const app = express();
